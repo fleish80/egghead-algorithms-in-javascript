@@ -13,10 +13,23 @@
                 indexOfLarge = i
             }
         }
-        console.log(`lrg = ${lrg}, indexOfLarge = ${indexOfLarge}`);
+        return indexOfLarge;
+        // console.log(`lrg = ${lrg}, indexOfLarge = ${indexOfLarge}`);
     }
 
-    findLargestValue(itemsToSort);
+    function selectionSort(list) {
+        let newList = []
+        let lrgItem;
+        while(list.length) {
+          lrgItem = findLargestValue(list);
+          newList.push(list[lrgItem]);
+          list.splice(lrgItem, 1);
+        }
+        return newList;
+      }
+
+      console.log(selectionSort(itemsToSort));
+
 }
 
 {
