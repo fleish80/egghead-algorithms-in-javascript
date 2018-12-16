@@ -5,3 +5,16 @@ function counter(){
 }
 
 counter()
+
+function findSix(i){
+    let hasSix="no!"
+    i.forEach(a => {
+        if(a === 6){
+            hasSix = "yes"
+        }
+        if(Array.isArray(a)) {
+            hasSix = findSix(a)
+        }
+    })
+    return hasSix
+}
