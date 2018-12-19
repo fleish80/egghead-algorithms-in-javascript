@@ -1,34 +1,32 @@
 {
-   
-const items = [9,6,5, 1];
-const size = 4;
 
-    minCoins(x) 
-    { 
-          
-        // base case 
-        if (x == 0) return 0; 
-          
-        // Initialize result 
-        // int res = int.MaxValue; 
-          
-        // Try every coin that has 
-        // smaller value than V 
-        for(let item of items) 
-        { 
-            if (item <= x) 
-            { 
-                int sub_res = minCoins(coins, m, 
-                                  V - coins[i]); 
-          
-                // Check for INT_MAX to  
-                // avoid overflow and see  
-                // if result can minimized 
-                if (sub_res != int.MaxValue &&  
-                            sub_res + 1 < res) 
-                    res = sub_res + 1; 
-            } 
-        } 
-        return res; 
-    } 
+    function waysToReturnChange(amount, denominations) {
+        // intialize an array of zeros with indices up to amount
+        var waysOfDoingNcents = [];
+        for (var i = 0; i <= amount; i++) {
+            waysOfDoingNcents[i] = 0;
+        }
+        // there is 1 way to renturn 0 cents
+        waysOfDoingNcents[0] = 1;
+
+        for (var j = 0; j < denominations.length; j++) {
+            // we can only start returning change with coins in our denominations
+            var coin = denominations[j];
+
+            // we start bottom up, each time reducing change amout with curr coin.
+            for (var higherAmount = coin; higherAmount <= amount; higherAmount++) {
+                var higherAmountRemainder = higherAmount - coin;
+                // ways to create change is equivalent to reducing the problem to a known problem
+                // and gaining all the ways to solve for smaller problems
+                waysOfDoingNcents[higherAmount] += waysOfDoingNcents[higherAmountRemainder];
+            }
+        }
+
+        return waysOfDoingNcents[amount];
+    }
+
+    var denominations = [1, 2, 3];
+    var amount = 4;
+    console.log(waysToReturnChange(denominations, denominations.length - 1, amount));
+
 }
